@@ -17,3 +17,5 @@ Faudrait notamment que tu fasses propre la fonction CalculPrix() en adaptant à 
 ### Optionnel 1: Sauvegarde des informations pour un éventuel check de négat's kfet.
 
 ### optionnel 2: Sauvegarde dans une nouvelle table de la bdd de la variation des prix pour un futur affichage web.
+
+Sal's hawking
