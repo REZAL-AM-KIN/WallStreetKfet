@@ -10,17 +10,13 @@ previous_state = False # Comparé à la variable "isRunning", permet de constate
 marge_kfet = 0.1 # Marge standard de la kfet
 marge_p3 = 0.1
 coef_lingus = 0.5
+# prix_produit_jeu = []
+# prix_P3_produit_jeu = []
+prix_standard_biblio = {} #prix standards kfet
 id_produit_jeu = (1, 2 ,3 ,4) # ID des produits concernés par le jeu.
-prix_produit_jeu = []
-prix_P3_produit_jeu = []
-prix_standard =[] #prix standards kfet
 
 connection={}
 connection["user"]='root'
 connection["password"]='LoveP3218'
 connection["database"]='GestionKINTest'
 connection["host"]='GestionKINTest.db'
-
-# Save prix standards pour les remettre à la fin du id_produit_jeu
-produit_standard = SQL_SELECT(QUERRY_getIdPrixProduits())
-print(produit_standard)
