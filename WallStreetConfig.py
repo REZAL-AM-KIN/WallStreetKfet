@@ -13,6 +13,7 @@ coef_lingus = 0.5
 id_produit_jeu = (1, 2 ,3 ,4) # ID des produits concernés par le jeu.
 prix_produit_jeu = []
 prix_P3_produit_jeu = []
+prix_standard =[] #prix standards kfet
 
 connection={}
 connection["user"]='root'
