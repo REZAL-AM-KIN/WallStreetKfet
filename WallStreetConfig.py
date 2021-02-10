@@ -1,7 +1,5 @@
 #Ici se trouvent les paramètres de bases à configurer avant la soirée et qui servent de bases
-import mysql.connector
-import SQL.py
-import QUERRY.py
+#import mysql.connector
 
 time_period = 30 #mins. Correspond à l'interval d'actualisation des prix.
 time_period_second = time_period * 60
@@ -12,11 +10,21 @@ marge_p3 = 0.1
 coef_lingus = 0.5
 # prix_produit_jeu = []
 # prix_P3_produit_jeu = []
-prix_standard_biblio = {} #prix standards kfet
-id_produit_jeu = (1, 2 ,3 ,4) # ID des produits concernés par le jeu.
+produits_standard = [] #id et prix standards kfet
+id_produit_jeu = [69, 2503, 4280, 4759] # ID des produits concernés par le jeu.
 
-connection={}
-connection["user"]='*****'
-connection["password"]='********'
-connection["database"]='GestionKINTest'
-connection["host"]='GestionKINTest.db'
+SQLid_produit_jeu = '(' + str(id_produit_jeu[0])# ID des pdts mais à utiliser pour les requetes
+for i in id_produit_jeu[1:]:
+    SQLid_produit_jeu += (', '+str(i))
+SQLid_produit_jeu += (')')
+
+# connection={}
+# connection["user"]='*****'
+# connection["password"]='********'
+# connection["database"]='localhost'
+# connection["host"]='GestionKINTest.db'
+
+user = 'WallStreet'
+password = '**'
+database = 'GestionKIN'
+host = '172.20.219.7'

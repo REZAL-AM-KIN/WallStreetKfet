@@ -1,7 +1,13 @@
 #Ici c'est le coeur du truc, qui va tourner en fond et gérer la soirée
+path = '/Users/Nathan/Documents/GitHub/WallStreetKfet/'
 
+import mysql.connector
 
-import WallStreetConfig.py
+exec(open(path+'QUERRY.py').read())
+exec(open(path+'WallStreetConfig.py').read())
+exec(open(path+'SQL.py').read())
+
+### A suppr au dessus
 
 isRunning = True
 
@@ -32,18 +38,16 @@ while True:
 
         if isRunning: # si c'est un demarrage, on stock les bons prix
             produits_standard = SQL_SELECT(QUERRY_getIdPrixProduits())
-            for produit in produits_standard:
-                prix_standard_biblio[produit['id']]=produit['prix']
-            previous_state = isRunning
+            print(produits_standard)
 
     elif isRunning: #On a deja demarré et on est en jeu
 
     ### 1ème étape: Calcul des nouveaux prix à partir des formules de Lingus.
-        prix_P3_futur = CalculPrix(prix_standard_biblio)
+        prix_p3_futur = CalculPrix(prix_standard_biblio)
 
 	### 2ème étape: UPDATE des prix kfet dans la bdd
         querrys = ""
-        for produit in prix_P3_futur
+        for produit in prix_p3_futur :
             querrys += QUERRY_setMontant(produit[0], produit[1])
         SQL_SELECT(querrys)
 
@@ -51,7 +55,8 @@ while True:
         querrys = ""
         for p in produits_standard:
             querrys += QUERRY_setMontant(p["id"],p["prix"])
-        SQL_UPDATE(querrys)
+        #SQL_UPDATE(querrys)
+        print("update prix")
         previous_state = isRunning
         break
 

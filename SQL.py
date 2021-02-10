@@ -1,5 +1,5 @@
 def SQL_SELECT(querry):
-    _cnx=mysql.connector.connect(**WallStreetConfig.connection)
+    _cnx=mysql.connector.connect(host = host, user = user, password = password, database = database)
     _cursor=_cnx.cursor()
     _cursor.execute(querry)
     _select=_cursor.fetchall()
@@ -7,7 +7,7 @@ def SQL_SELECT(querry):
     return _select
 
 def SQL_UPDATE(querry):
-    _cnx=mysql.connector.connect(**WallStreetConfig.connection)
+    _cnx=mysql.connector.connect(host = host, user = user, password = password, database = database)
     _cursor=_cnx.cursor()
     querrys=querry.split(";")
     print("Synchronisation SQL: "+str(len(querrys))+" requetes")
