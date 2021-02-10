@@ -16,7 +16,7 @@ prix_standard_biblio = {} #prix standards kfet
 id_produit_jeu = (1, 2 ,3 ,4) # ID des produits concernés par le jeu.
 
 connection={}
-connection["user"]='root'
-connection["password"]='LoveP3218'
+connection["user"]='*****'
+connection["password"]='********'
 connection["database"]='GestionKINTest'
 connection["host"]='GestionKINTest.db'
