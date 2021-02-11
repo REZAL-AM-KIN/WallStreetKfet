@@ -35,7 +35,7 @@ def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
             x = 0
         else :
             x = A / Lcpp[i]
-        if Lcpp[i] >= Lcpa[i]:
+        if Lcpp[i] > Lcpa[i]:
             Produits_periode_futur.append((produits_standard[i][0],produits_standard[i][1]*(1+(Conso_produit_periode/Conso_total_periode)*coef_lingus)+10))
         else :
             Produits_periode_futur.append((produits_standard[i][0],produits_standard[i][1]*(1-(Conso_produit_periode/Conso_total_periode)*coef_lingus)+x))
@@ -47,6 +47,9 @@ def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
 
 
 while True:
+    if input("continue? y/n") == "n":
+        isRunning = False
+
     if isRunning != previous_state: #permet de constater que le jeu démarre ou s'arrête
 
         if isRunning: # si c'est un demarrage, on stock les bons prix
@@ -66,8 +69,8 @@ while True:
 
     else: # On a arrété le jeu et tout est remis en place, on quitte
         querrys = ""
-        for p in produits_standard:
-            querrys += QUERRY_setMontant(p["id"],p["prix"])
+        for produit in produits_standard:
+            querrys += QUERRY_setMontant(produit[0],produit[1])
         SQL_UPDATE(querrys)
         print("remise à zero prix")
         previous_state = isRunning

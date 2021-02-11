@@ -6,7 +6,7 @@ isRunning = False # Active ou non le mode WallStreet.
 previous_state = False # Comparé à la variable "isRunning", permet de constater un changement d'état marche/arrêt du jeu.
 coef_lingus = 0.5 #Coeff de Lingus, scientifique connu du 21eme
 produits_standard = [] #id et prix standards kfet
-id_produit_jeu = [69, 2503, 4280, 4759] # ID des produits concernés par le jeu.
+id_produit_jeu = [69, 2503, 4280, 3826] # ID des produits concernés par le jeu.
 
 SQLid_produit_jeu = '(' + str(id_produit_jeu[0])# ID des pdts mais à utiliser pour les requetes
 for i in id_produit_jeu[1:]:
