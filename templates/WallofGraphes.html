@@ -4,7 +4,7 @@
 	<title>CRACK BOURSIER à la KFET</title>
 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -27,7 +27,7 @@
 
         chart.draw(data, options);
       }
-    </script>
+    </script> -->
 
 </head>
 <meta charset="utf-8">
@@ -37,8 +37,33 @@
 	<header class="entete">
 		<h1>Cotation en bourse de la K'fet Kinoise</h1>
 	</header>
-	<div id="curve_chart" style="width: 900px; height: 500px"></div>
+	<div id="prix_chart" style="width: 900px; height: 500px"></div>
 	<div id="conso_chart" style="width: 900px; height: 500px"></div>
+
+<script type="text/javascript">
+  var prix = JSON.parse('{{prix|tojson}}');
+  var conso = JSON.parse('{{conso|tojson}}');
+
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data_prix = google.visualization.arrayToDataTable(prix);
+    var data_conso = google.visualization.arrayToDataTable(conso);
+
+    var options = {
+      title: 'Company Performance',
+      curveType: 'function',
+      legend: { position: 'bottom' }
+    };
+
+    var chart_prix = new google.visualization.LineChart(document.getElementById('prix_chart'));
+    var chart_conso = new google.visualization.LineChart(document.getElementById('conso_chart'));
+
+    chart_prix.draw(data_prix, options);
+    chart_conso.draw(data_conso, options);
+  }
+</script>
 </body>
 </html>
 

@@ -3,7 +3,7 @@ print("SQL Querry initialization ")
 ## Le schema de la bdd (attention c'est la nouvelle qui n'a pas été mise en place !!) est dispo dans le dossier pour aider
 
 def QUERRY_getIdPrixProduits():
-    return (f"SELECT id, prix FROM produits WHERE id IN {SQLid_produit_jeu} ;")
+    return (f"SELECT id, prix, name FROM produits WHERE id IN {SQLid_produit_jeu} ;")
 
 def QUERRY_getConsoPeriode(IDproduit): #renvoie le nb vendu sur la periode pour UN PRODUIT
     if time_period >= 10:

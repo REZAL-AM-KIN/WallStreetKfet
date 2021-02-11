@@ -8,10 +8,6 @@ def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
     Produits_periode = SQL_SELECT(QUERRY_getIdPrixProduits())
     Produits_periode_futur = []
 
-    if Conso_total_periode == 0:
-        print("Pas de consos sur la période")
-        return Produits_periode
-
 
     #Calul de A
     Lcpp , Lcpa = [],[] #listes consos produits periode et periode avant
@@ -23,6 +19,10 @@ def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
         Lcpp.append(Conso_produit_periode) #permet de pas refaire sql
         Lcpa.append(Conso_produit_avant)
         CA_total_Kfet += Lcpp[i]*produits_standard[i][1]
+
+    if Conso_total_periode == 0:
+        print("Pas de consos sur la période")
+        return Produits_periode, Lcpp
 
     CA_total_P3 = 0
     for i in range(len(Produits_periode)):
@@ -46,7 +46,7 @@ def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
     print('conso période :', Lcpp)
     print('prix période : ', Produits_periode)
     print('prix nouveaux : ',Produits_periode_futur)
-    return Produits_periode_futur
+    return Produits_periode_futur, Lcpp
 
 periodes_jouees = 0
 while True:
@@ -61,12 +61,27 @@ while True:
         if isRunning: # si c'est un demarrage, on stock les bons prix
             produits_standard = SQL_SELECT(QUERRY_getIdPrixProduits())
             #print(produits_standard)
+            for produit in produits_standard:
+                name_produit.append(produit[2])
+            with open("name_produit.txt",'wb') as fp:
+                pickle.dump(name_produit,fp)
+            print("Les produits joués sont: ",name_produit)
         previous_state = isRunning
 
     if isRunning: #On a deja demarré et on est en jeu
 
     ### 1ème étape: Calcul des nouveaux prix à partir des formules de Lingus.
-        prix_p3_futur = CalculPrix()
+        prix_p3_futur, Lcpp_temp = CalculPrix()
+        all_Lccp.append(Lcpp_temp)
+        all_prix.append([item[1] for item in prix_p3_futur])
+        with open("all_lccp.txt",'wb') as fp:
+            pickle.dump(all_Lccp,fp)
+        with open("all_prix.txt",'wb') as fp:
+            pickle.dump(all_prix,fp)
+        with open("all_lccp.txt", "rb") as fp:
+            test = pickle.load(fp)
+        print(all_Lccp,all_prix)
+        print("test:",test)
 
 	### 2ème étape: UPDATE des prix kfet dans la bdd
         querrys = ""

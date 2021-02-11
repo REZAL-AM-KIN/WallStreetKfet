@@ -13,6 +13,8 @@ SQLid_produit_jeu = '(' + str(id_produit_jeu[0])# ID des pdts mais à utiliser p
 for i in id_produit_jeu[1:]:
     SQLid_produit_jeu += (', '+str(i))
 SQLid_produit_jeu += (')')
+name_produit = []
+all_Lccp, all_prix = [], []
 
 # connection={}
 # connection["user"]='*****'
