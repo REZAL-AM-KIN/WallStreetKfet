@@ -18,4 +18,4 @@ def SQL_UPDATE(querry):
         _cursor.execute(q)
         _cnx.commit()
     _cnx.close()
-    DATA_add('/home/rezal/WallStreetMode/LOG_SQL.txt',querry+"\n")
+    DATA_add(path+'WallStreetMode/LOG_SQL.txt',querry+"\n")

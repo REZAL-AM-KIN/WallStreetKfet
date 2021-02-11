@@ -1,6 +1,6 @@
 #Ici se trouvent les paramètres de bases à configurer avant la soirée et qui servent de bases
 
-time_period = 1 #mins. ATTENTION <=30 sinon programme marche pas !! Correspond à l'interval d'actualisation des prix.
+time_period = 1 #mins. ATTENTION <=30 et >=1 sinon programme marche pas !! Correspond à l'interval d'actualisation des prix.
 time_period_second = time_period * 60
 isRunning = False # Active ou non le mode WallStreet.
 previous_state = False # Comparé à la variable "isRunning", permet de constater un changement d'état marche/arrêt du jeu.

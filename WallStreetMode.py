@@ -3,13 +3,13 @@
 isRunning = True
 
 def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
-    Conso_total_periode = SQL_SELECT(QUERRY_getConsoTotalePeriode()[0][0])
-    Conso_total_avant = SQL_SELECT(QUERRY_getConsoTotalePeriodeMoinsUn()[0][0])
+    Conso_total_periode = SQL_SELECT(QUERRY_getConsoTotalePeriode())[0][0]
+    Conso_total_avant = SQL_SELECT(QUERRY_getConsoTotalePeriodeMoinsUn())[0][0]
     Produits_periode = SQL_SELECT(QUERRY_getIdPrixProduits())
     Produits_periode_futur = []
 
-    if Conso_total_avant[0][0] == 0:
-        print("\noui\n")
+    if Conso_total_periode == 0:
+        print("Pas de consos sur la période")
         return Produits_periode
 
 
@@ -18,8 +18,8 @@ def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
     CA_total_Kfet = 0
     for i in range(len(Produits_periode)):
         produit = Produits_periode[i]
-        Conso_produit_periode = SQL_SELECT(QUERRY_getConsoPeriode(produit[0][0]))
-        Conso_produit_avant = SQL_SELECT(QUERRY_getConsoPeriodeMoinsUn(produit[0][0]))
+        Conso_produit_periode = SQL_SELECT(QUERRY_getConsoPeriode(produit[0]))[0][0]
+        Conso_produit_avant = SQL_SELECT(QUERRY_getConsoPeriodeMoinsUn(produit[0]))[0][0]
         Lcpp.append(Conso_produit_periode) #permet de pas refaire sql
         Lcpa.append(Conso_produit_avant)
         CA_total_Kfet += Lcpp[i]*produits_standard[i][1]
@@ -31,12 +31,18 @@ def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
     A = CA_total_Kfet - CA_total_P3
     for i in range(len(Produits_periode)):
         #Calcul des nouveaux prix
-        x = A / Lcpp[i]
-        if Lcpp[i] >= Lcpa[i]:
-            Produits_periode_futur.append((produits_standard[i][0],[i]*(1+(Conso_produit_avant/Conso_total_avant))*coef_lingus+x))
+        if Lcpp[i] == 0:
+            x = 0
         else :
-            Produits_periode_futur.append((produits_standard[i][0],produits_standard[i]*(1-(Conso_produit_avant/Conso_total_avant))*coef_lingus+x))
-    print(Produits_periode_futur)
+            x = A / Lcpp[i]
+        if Lcpp[i] >= Lcpa[i]:
+            Produits_periode_futur.append((produits_standard[i][0],produits_standard[i][1]*(1+(Conso_produit_periode/Conso_total_periode)*coef_lingus)+10))
+        else :
+            Produits_periode_futur.append((produits_standard[i][0],produits_standard[i][1]*(1-(Conso_produit_periode/Conso_total_periode)*coef_lingus)+x))
+    print('consos anciens : ', Lcpa)
+    print('conso période :', Lcpp)
+    print('prix période : ', Produits_periode)
+    print('prix nouveaux : ',Produits_periode_futur)
     return Produits_periode_futur
 
 
@@ -66,5 +72,5 @@ while True:
         print("remise à zero prix")
         previous_state = isRunning
         break
-    print(datetime.now().strftime("%H:%M:%S"))
-    time.sleep(10)
+    print(datetime.now().strftime("%H:%M:%S"),'\n')
+    time.sleep(time_period_second)
