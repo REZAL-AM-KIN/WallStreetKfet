@@ -36,25 +36,32 @@ def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
         else :
             x = A / Lcpp[i]
         if Lcpp[i] > Lcpa[i]:
-            Produits_periode_futur.append((produits_standard[i][0],produits_standard[i][1]*(1+(Conso_produit_periode/Conso_total_periode)*coef_lingus)+10))
+            #print(int(produits_standard[i][1]*(1+(Lcpp[i]/Conso_total_periode))*100)/100)
+            # print(Conso_produit_periode)
+            # print(Conso_total_periode)
+            Produits_periode_futur.append((produits_standard[i][0] , int((produits_standard[i][1] * (1 + (Lcpp[i] / Conso_total_periode) * coef_lingus) + x) * 100) / 100))
         else :
-            Produits_periode_futur.append((produits_standard[i][0],produits_standard[i][1]*(1-(Conso_produit_periode/Conso_total_periode)*coef_lingus)+x))
+            Produits_periode_futur.append((produits_standard[i][0] , int((produits_standard[i][1] * (1 - (Lcpp[i] / Conso_total_periode) * coef_lingus) + x) * 100) / 100))
     print('consos anciens : ', Lcpa)
     print('conso période :', Lcpp)
     print('prix période : ', Produits_periode)
     print('prix nouveaux : ',Produits_periode_futur)
     return Produits_periode_futur
 
-
+periodes_jouees = 0
 while True:
-    # if input("continue? y/n") == "n":
-    #     isRunning = False
+    if periodes_jouees >= Nb_de_Periodes:
+        isRunning = False
+    periodes_jouees += 1
+
+    print(datetime.now().strftime("%H:%M:%S"))
 
     if isRunning != previous_state: #permet de constater que le jeu démarre ou s'arrête
 
         if isRunning: # si c'est un demarrage, on stock les bons prix
             produits_standard = SQL_SELECT(QUERRY_getIdPrixProduits())
             #print(produits_standard)
+        previous_state = isRunning
 
     if isRunning: #On a deja demarré et on est en jeu
 
@@ -75,5 +82,5 @@ while True:
         print("remise à zero prix")
         previous_state = isRunning
         break
-    print(datetime.now().strftime("%H:%M:%S"),'\n')
+    print(f"\nIl reste'{Nb_de_Periodes - periodes_jouees}' manches de '{time_period}' min.\n")
     time.sleep(time_period_second)
