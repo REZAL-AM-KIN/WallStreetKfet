@@ -1,14 +1,22 @@
 from flask import Flask, render_template
+
+# A retirer; pour test
 import time
+import mysql.connector
+path = "C:/Users/Rezal/Documents/GitHub/WallStreetKfet/"
+exec(open(path+'QUERRY.py').read())
+exec(open(path+'WallStreetConfig.py').read())
+exec(open(path+'SQL.py').read())
+
 
 conso, prix = [], []
-name_prix_produits = SQL_SELECT(QUERRY_getIdPrixProduits(id_produit_jeu))
+name_prix_produits = SQL_SELECT(QUERRY_getIdPrixProduits())
 
-hearder = ["Heure"]
-for produit in name_prix_produits:
-	hearder.append(produit['name'])
-conso.append(header)
-prix.append(header)
+# hearder = ["Heure"]
+# for produit in name_prix_produits:
+# 	hearder.append(produit['name'])
+# conso.append(header)
+# prix.append(header)
 # ------------------
 # application Flask
 # ------------------
@@ -18,18 +26,6 @@ app = Flask(__name__)
 @app.route("/", methods=['GET', 'POST'])
 def index():
 	return render_template("WallofGraphes.html", prix=prix, conso=conso);
-	name_prix_produits = SQL_SELECT(QUERRY_getIdPrixProduits(id_produit_jeu))
-	now = datetime.datetime.now() # Une requête pour avoir le temps SQL serait bien
-	heure = str(now.hour)+":"+str(now.min)
-	new_conso = [heure]
-	new_prix = [heure]
-	for produit in name_prix_produits:
-	    new_prix.append(produit['prix'])
-	    new_conso.append(SQL_SELECT(QUERRY_getConsoPeriode(produit['id'])))
-	prix.append(new_prix)
-	conso.append(new_conso)
-
-
 
 # ---------------------------------------
 # pour lancer le serveur web local Flask

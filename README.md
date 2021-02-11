@@ -19,3 +19,24 @@ Faudrait notamment que tu fasses propre la fonction CalculPrix() en adaptant à 
 ### optionnel 2: Sauvegarde dans une nouvelle table de la bdd de la variation des prix pour un futur affichage web.
 
 Sal's hawking
+
+
+
+// function drawChart() {
+      //   var conso = JSON.parse('{{ conso|tojson }}');
+		    // var prix = JSON.parse('{{ pprix|tojson }}');
+
+      //   var options = {
+      //     title: 'Company Performance',
+      //     curveType: 'function',
+      //     legend: { position: 'bottom' }
+      //   };
+
+      //   var chart = new google.visualization.LineChart(document.getElementById('prix_chart'));
+
+      //   chart.draw(prix, options);
+
+      //   var chart = new google.visualization.LineChart(document.getElementById('prix_chart'));
+
+      //   chart.draw(conso, options);
+      // }

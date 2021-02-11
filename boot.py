@@ -1,7 +1,7 @@
 ### Pas encore Adapté des boxes
 
 print("Demarrage 'boot.py'")
-path = '/Users/Nathan/Documents/GitHub/WallStreetKfet/'
+path = "C:/Users/Rezal/Documents/GitHub/WallStreetKfet/"
 
 import time
 import mysql.connector

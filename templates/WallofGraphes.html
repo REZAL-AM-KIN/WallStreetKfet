@@ -9,8 +9,13 @@
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-        var conso = JSON.parse('{{ conso|tojson }}');
-		var prix = JSON.parse('{{ pprix|tojson }}');
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2004',  2000,      400],
+          ['2005',  1170,      460],
+          ['2006',  660,       1120],
+          ['2007',  1030,      540]
+        ]);
 
         var options = {
           title: 'Company Performance',
@@ -18,34 +23,10 @@
           legend: { position: 'bottom' }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('prix_chart'));
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
-        chart.draw(prix, options);
-
-        var chart = new google.visualization.LineChart(document.getElementById('prix_chart'));
-
-        chart.draw(conso, options);
+        chart.draw(data, options);
       }
-
-      // function drawChart() {
-      //   var data = google.visualization.arrayToDataTable([
-      //     ['Year', 'Sales', 'Expenses'],
-      //     ['2004',  2000,      400],
-      //     ['2005',  1170,      460],
-      //     ['2006',  660,       1120],
-      //     ['2007',  1030,      540]
-      //   ]);
-
-      //   var options = {
-      //     title: 'Company Performance',
-      //     curveType: 'function',
-      //     legend: { position: 'bottom' }
-      //   };
-
-      //   var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-      //   chart.draw(data, options);
-      // }
     </script>
 
 </head>
@@ -56,7 +37,7 @@
 	<header class="entete">
 		<h1>Cotation en bourse de la K'fet Kinoise</h1>
 	</header>
-	<div id="prix_chart" style="width: 900px; height: 500px"></div>
+	<div id="curve_chart" style="width: 900px; height: 500px"></div>
 	<div id="conso_chart" style="width: 900px; height: 500px"></div>
 </body>
 </html>
