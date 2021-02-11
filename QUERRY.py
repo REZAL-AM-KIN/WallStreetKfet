@@ -33,7 +33,5 @@ def QUERRY_getConsoTotalePeriodeMoinsUn(): #renvoie le nb vendu sur la periode p
     else:
         return (f"SELECT count(*) FROM consos WHERE produits_id IN {SQLid_produit_jeu} AND TIMEDIFF( NOW() , FROM_UNIXTIME(date)) < '{'00:0'+str(2*time_period)+':00'}'AND TIMEDIFF(NOW(), FROM_UNIXTIME(date)) > '{'00:0'+str(time_period)+':00'}' ;")
 
-
-
 def QUERRY_setMontant(ID,montant):
     return (f"UPDATE produits SET prix={montant} WHERE id={ID};") # Point virgule important ici

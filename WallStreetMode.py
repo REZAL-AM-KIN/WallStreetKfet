@@ -59,10 +59,10 @@ while True:
         prix_p3_futur = CalculPrix()
 
 	### 2ème étape: UPDATE des prix kfet dans la bdd
-        # querrys = ""
-        # for produit in prix_p3_futur :
-        #     querrys += QUERRY_setMontant(produit[0], produit[1])
-        # SQL_SELECT(querrys)
+        querrys = ""
+        for produit in prix_p3_futur :
+            querrys += QUERRY_setMontant(produit[0], produit[1])
+        SQL_UPDATE(querrys)
 
     else: # On a arrété le jeu et tout est remis en place, on quitte
         querrys = ""
