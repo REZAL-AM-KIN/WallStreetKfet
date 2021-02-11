@@ -47,8 +47,8 @@ def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
 
 
 while True:
-    if input("continue? y/n") == "n":
-        isRunning = False
+    # if input("continue? y/n") == "n":
+    #     isRunning = False
 
     if isRunning != previous_state: #permet de constater que le jeu démarre ou s'arrête
 
