@@ -1,36 +1,43 @@
 #Ici c'est le coeur du truc, qui va tourner en fond et gérer la soirée
-path = '/Users/Nathan/Documents/GitHub/WallStreetKfet/'
-
-import mysql.connector
-
-exec(open(path+'QUERRY.py').read())
-exec(open(path+'WallStreetConfig.py').read())
-exec(open(path+'SQL.py').read())
-
-### A suppr au dessus
 
 isRunning = True
 
-def CalculPrix(prix_standard_biblio):
-    Conso_total_periode = SQL_SELECT(QUERRY_getConsoTotalePeriode())
-    Prix_periode = SQL_SELECT(QUERRY_getIdPrixProduits())
-    M_kfet, M_P3 = 0, 0
-    Prix_periode_futur = []
+def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
+    Conso_total_periode = SQL_SELECT(QUERRY_getConsoTotalePeriode()[0][0])
+    Conso_total_avant = SQL_SELECT(QUERRY_getConsoTotalePeriodeMoinsUn()[0][0])
+    Produits_periode = SQL_SELECT(QUERRY_getIdPrixProduits())
+    Produits_periode_futur = []
 
-    for produit in Prix_periode:
-            Conso_produit_periode = SQL_SELECT(QUERRY_getConsoPeriode(produit['id']))
-            Conso_produit_periode_biblio[produit['id']] = Conso_produit_periode # On sauvegarde dans une biblio pour ne pas refaire la même requête juste après
-            M_kfet += marge_kfet*Conso_produit_periode*produit['prix']
-            M_P3 += Conso_produit_periode*(produit['prix']-prix_standard_biblio[produit['id']])
-    A = M_kfet - M_P3
-    for produit in Prix_periode:
-        x = A / Conso_produit_periode_biblio[produit['id']]
-        Conso_produit_periode_precedente = SQL_SELECT(QUERRY_getConsoPeriodeMoinsUn(produit['id']))
-        if Conso_produit_periode_biblio[produit['id']] >= Conso_produit_periode_precedente:
-            Prix_periode_futur.append([produit['id'], prix_standard_biblio[produit['id']]*(1+(Conso_produit_periode_biblio[produit['id']]/Conso_total_periode))*coef_lingus + x ])
-        else:
-            Prix_periode_futur.append([produit['id'],prix_standard_biblio[produit['id']]*(1-(Conso_produit_periode_biblio[produit['id']]/Conso_total_periode))*coef_lingus + x ])
-    return Prix_periode_futur
+    if Conso_total_avant[0][0] == 0:
+        print("\noui\n")
+        return Produits_periode
+
+
+    #Calul de A
+    Lcpp , Lcpa = [],[] #listes consos produits periode et periode avant
+    CA_total_Kfet = 0
+    for i in range(len(Produits_periode)):
+        produit = Produits_periode[i]
+        Conso_produit_periode = SQL_SELECT(QUERRY_getConsoPeriode(produit[0][0]))
+        Conso_produit_avant = SQL_SELECT(QUERRY_getConsoPeriodeMoinsUn(produit[0][0]))
+        Lcpp.append(Conso_produit_periode) #permet de pas refaire sql
+        Lcpa.append(Conso_produit_avant)
+        CA_total_Kfet += Lcpp[i]*produits_standard[i][1]
+
+    CA_total_P3 = 0
+    for i in range(len(Produits_periode)):
+        CA_total_P3 += Lcpp[i]*Produits_periode[i][1]
+
+    A = CA_total_Kfet - CA_total_P3
+    for i in range(len(Produits_periode)):
+        #Calcul des nouveaux prix
+        x = A / Lcpp[i]
+        if Lcpp[i] >= Lcpa[i]:
+            Produits_periode_futur.append((produits_standard[i][0],[i]*(1+(Conso_produit_avant/Conso_total_avant))*coef_lingus+x))
+        else :
+            Produits_periode_futur.append((produits_standard[i][0],produits_standard[i]*(1-(Conso_produit_avant/Conso_total_avant))*coef_lingus+x))
+    print(Produits_periode_futur)
+    return Produits_periode_futur
 
 
 while True:
@@ -38,26 +45,26 @@ while True:
 
         if isRunning: # si c'est un demarrage, on stock les bons prix
             produits_standard = SQL_SELECT(QUERRY_getIdPrixProduits())
-            print(produits_standard)
+            #print(produits_standard)
 
-    elif isRunning: #On a deja demarré et on est en jeu
+    if isRunning: #On a deja demarré et on est en jeu
 
     ### 1ème étape: Calcul des nouveaux prix à partir des formules de Lingus.
-        prix_p3_futur = CalculPrix(prix_standard_biblio)
+        prix_p3_futur = CalculPrix()
 
 	### 2ème étape: UPDATE des prix kfet dans la bdd
-        querrys = ""
-        for produit in prix_p3_futur :
-            querrys += QUERRY_setMontant(produit[0], produit[1])
-        SQL_SELECT(querrys)
+        # querrys = ""
+        # for produit in prix_p3_futur :
+        #     querrys += QUERRY_setMontant(produit[0], produit[1])
+        # SQL_SELECT(querrys)
 
     else: # On a arrété le jeu et tout est remis en place, on quitte
         querrys = ""
         for p in produits_standard:
             querrys += QUERRY_setMontant(p["id"],p["prix"])
-        #SQL_UPDATE(querrys)
-        print("update prix")
+        SQL_UPDATE(querrys)
+        print("remise à zero prix")
         previous_state = isRunning
         break
-
-    sleep(time_period_second)
+    print(datetime.now().strftime("%H:%M:%S"))
+    time.sleep(10)
