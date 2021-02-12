@@ -16,6 +16,8 @@ MYSQL
 flask
 python3
 
+puis executer "export FLASK_APP=WallofGraphes.py"
+
 - Penser à changer (DIRECTEMENT SUR LA VM, pas sur github !!!) WallStreetConfig pour y mettre la bonne ip bdd et logins / mdp et la bonne durée de la période
 - Changer path dans launch.py
 
