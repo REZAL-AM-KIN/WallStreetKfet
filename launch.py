@@ -1,7 +1,7 @@
 ### Pas encore Adapté des boxes
 
 print("Demarrage 'launch.py'")
-path = "/Users/Nathan/Documents/GitHub/WallStreetKfet/"
+path = "/home/rezal/WallStreetKfet/"
 
 import time
 import mysql.connector
