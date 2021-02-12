@@ -65,7 +65,7 @@ while True:
                 name_produit.append(produit[2])
             with open("name_produit.txt",'wb') as fp:
                 pickle.dump(name_produit,fp)
-            print("Les produits joués sont: ",name_produit)
+            print("\nLes produits joués sont: ",name_produit,"\n")
         previous_state = isRunning
 
     if isRunning: #On a deja demarré et on est en jeu
@@ -80,8 +80,8 @@ while True:
             pickle.dump(all_prix,fp)
         with open("all_lccp.txt", "rb") as fp:
             test = pickle.load(fp)
-        print(all_Lccp,all_prix)
-        print("test:",test)
+        #print(all_Lccp,all_prix)
+        #print("test:",test)
 
 	### 2ème étape: UPDATE des prix kfet dans la bdd
         querrys = ""

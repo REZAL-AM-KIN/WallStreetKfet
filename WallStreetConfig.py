@@ -7,7 +7,7 @@ previous_state = False # Comparé à la variable "isRunning", permet de constate
 coef_lingus = 0.5 #Coeff de Lingus, scientifique connu du 21eme
 produits_standard = [] #id et prix standards kfet
 id_produit_jeu = [69, 2503, 4280, 3826] # ID des produits concernés par le jeu.
-Nb_de_Periodes = int(input(f"Combien de manches de '{time_period}' minutes voulez vous jouer ?\nAttention ! La partie ne peut être arrêtée en cours et les prix norm'sss kfet seront automatiquement remis à la fin. : \n"))
+Nb_de_Periodes = int(input(f"\nCombien de manches de '{time_period}' minutes voulez vous jouer ?\nAttention ! La partie ne peut être arrêtée en cours et les prix norm'sss kfet seront automatiquement remis à la fin. : \n"))
 print(f"Le mode WallStreet sera actif pendant '{time_period * Nb_de_Periodes}' minutes. NE PAS ETEINDRE LA VM pendant (sinon faudra rechanger les prix modifiés à la main ...)")
 SQLid_produit_jeu = '(' + str(id_produit_jeu[0])# ID des pdts mais à utiliser pour les requetes
 for i in id_produit_jeu[1:]:
