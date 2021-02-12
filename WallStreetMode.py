@@ -97,5 +97,5 @@ while True:
         print("\nremise à zero prix")
         previous_state = isRunning
         break
-    print(f"\nIl reste'{Nb_de_Periodes - periodes_jouees}' manches de '{time_period}' min.\n")
+    print("\nIl reste'{0}' manches de '{1}' min.\n".format(1+Nb_de_Periodes - periodes_jouees,time_period))
     time.sleep(time_period_second)
