@@ -21,7 +21,6 @@ def index():
 	for i in range(0,len(all_prix)):
 		conso, prix = [],  []
 		for j in range(0,len(name_produit)):
-			print(j)
 			conso.append(all_lccp[i][j])
 			prix.append(all_prix[i][j])
 		tableau_conso.append([i]+conso)
