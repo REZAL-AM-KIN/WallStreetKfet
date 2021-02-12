@@ -6,7 +6,7 @@ isRunning = False # Active ou non le mode WallStreet.
 previous_state = False # Comparé à la variable "isRunning", permet de constater un changement d'état marche/arrêt du jeu.
 coef_lingus = 0.3 #Coeff de Lingus, scientifique connu du 21eme
 produits_standard = [] #id et prix standards kfet
-id_produit_jeu = [69, 2503, 4280, 3826] # ID des produits concernés par le jeu.
+id_produit_jeu = [69, 2503, 4280,1,20,26,71,74,474,475,481,482,485,491] # ID des produits concernés par le jeu.
 Nb_de_Periodes = int(input("\nCombien de manches de '{0}' minutes voulez vous jouer ?\nAttention ! La partie ne peut être arrêtée en cours et les prix norm'sss kfet seront automatiquement remis à la fin. : \n".format(time_period)))
 print("Le mode WallStreet sera actif pendant '{0}' minutes. NE PAS ETEINDRE LA VM pendant (sinon faudra rechanger les prix modifiés à la main ...)".format(time_period * Nb_de_Periodes))
 SQLid_produit_jeu = '(' + str(id_produit_jeu[0])# ID des pdts mais à utiliser pour les requetes
