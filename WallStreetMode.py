@@ -39,9 +39,9 @@ def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
             #print(int(produits_standard[i][1]*(1+(Lcpp[i]/Conso_total_periode))*100)/100)
             # print(Conso_produit_periode)
             # print(Conso_total_periode)
-            Produits_periode_futur.append((produits_standard[i][0] , int((produits_standard[i][1] * (1 + (Lcpp[i] / Conso_total_periode) * coef_lingus) + x) * 100) / 100))
+            Produits_periode_futur.append((produits_standard[i][0] , max(int(100*produits_standard[i][1]/2)/100,int((produits_standard[i][1] + (Lcpp[i] / Conso_total_periode) * coef_lingus) * 100) / 100)))
         else :
-            Produits_periode_futur.append((produits_standard[i][0] , int((produits_standard[i][1] * (1 - (Lcpp[i] / Conso_total_periode) * coef_lingus) + x) * 100) / 100))
+            Produits_periode_futur.append((produits_standard[i][0] , max(int(100*produits_standard[i][1]/2)/100, int((produits_standard[i][1] - (1 - Lcpp[i] / Conso_total_periode) * coef_lingus) * 100) / 100)))
     print('consos anciens : ', Lcpa)
     print('conso période :', Lcpp)
     print('prix période : ', Produits_periode)
@@ -94,7 +94,7 @@ while True:
         for produit in produits_standard:
             querrys += QUERRY_setMontant(produit[0],produit[1])
         SQL_UPDATE(querrys)
-        print("remise à zero prix")
+        print("\nremise à zero prix")
         previous_state = isRunning
         break
     print(f"\nIl reste'{Nb_de_Periodes - periodes_jouees}' manches de '{time_period}' min.\n")
