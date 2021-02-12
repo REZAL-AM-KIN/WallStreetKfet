@@ -1,6 +1,6 @@
 ### Pas encore Adapté des boxes
 
-print("Demarrage 'boot.py'")
+print("Demarrage 'launch.py'")
 path = "C:/Users/Rezal/Documents/GitHub/WallStreetKfet/"
 
 import time
