@@ -1,8 +1,11 @@
 # WallStreetKfet
 
 Pour lancer le jeu :
-sur une AUTRE console de la vm : "flask run -h 172.20.218.30"
+
+executer "export FLASK_APP=WallofGraphes.py"
 sur une console de la vm : "python3 launch.py" dans le bon dossier ebid'sss
+sur une AUTRE console de la vm : "flask run -h 172.20.218.30"
+
 
 
 Ensuite répondre aux questions dans le shell puis le jeu est lancé.
@@ -16,7 +19,6 @@ MYSQL
 flask
 python3
 
-puis executer "export FLASK_APP=WallofGraphes.py"
 
 - Penser à changer (DIRECTEMENT SUR LA VM, pas sur github !!!) WallStreetConfig pour y mettre la bonne ip bdd et logins / mdp et la bonne durée de la période
 - Changer path dans launch.py
