@@ -1,3 +1,5 @@
+from WallStreetConfig import *
+
 print("SQL Querry initialization ".format())
 
 ## Le schema de la bdd (attention c'est la nouvelle qui n'a pas été mise en place !!) est dispo dans le dossier pour aider
