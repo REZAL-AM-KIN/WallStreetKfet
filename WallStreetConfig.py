@@ -2,8 +2,14 @@
 
 
 #mins. ATTENTION <=30 et >=1 sinon programme marche pas !! Correspond à l'interval d'actualisation des prix.
-time_period = 1
+time_period = 2
 time_period_second = time_period * 60
+
+
+
+REFRESH_INTERVAL = 30   # [s]; fréquence à laquelle les prix sont recalculés
+
+PERIOD_SIZE = 15 * 60    # [s]; fenêtre de temps sur laquelle les consommations sont comptées
 
 # Nb_de_Periodes = // à entrer par l'utilisateur
 
@@ -20,7 +26,7 @@ coef_lingus = 0.3
 produits_standard = []
 
 # ID des produits concernés par le jeu.
-id_produit_jeu = [4973, 4974, 4975, 4976, 4977, 4978, 4979, 4980, 4981, 4982, 4983, 4984, 4985, 4986]
+id_produit_jeu = [4924, 5026, 4674, 4698]
 
 # ID des pdts mais à utiliser pour les requetes
 SQLid_produit_jeu = '(' + str(id_produit_jeu[0])
