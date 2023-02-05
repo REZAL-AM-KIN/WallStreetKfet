@@ -38,7 +38,7 @@ while True:
     if isRunning:   # On a deja demarré et on est en jeu
         # -------------------
         # 1ème étape: Calcul des nouveaux prix à partir des formules de Lingus.
-        prix_p3_futur, Lcpp_temp = CalculPrix()
+        prix_p3_futur, Lcpp_temp = CalculPrix(produits_standard)
         all_Lccp.append(Lcpp_temp)
         all_prix.append([item[1] for item in prix_p3_futur])
         with open("all_lccp.txt", 'wb') as fp:
@@ -66,5 +66,5 @@ while True:
         previous_state = isRunning
         break
 
-    print("\nIl reste'{0}' manches de '{1}' secondes.\n".format(1+GAME_DURATION_STEP - periodes_jouees, REFRESH_INTERVAL))
+    print("\nIl reste {0} manches de {1} secondes.\n".format(1+GAME_DURATION_STEP - periodes_jouees, REFRESH_INTERVAL))
     time.sleep(REFRESH_INTERVAL)    # on attends le step suivant

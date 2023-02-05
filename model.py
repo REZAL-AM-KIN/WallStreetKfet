@@ -2,7 +2,7 @@ from SQL import *
 from QUERRY import *
 
 
-def CalculPrix(): #Renvoie [(id1,prix1),(id2,prix2) ...]
+def CalculPrix(produits_standard):   # Renvoie [(id1,prix1),(id2,prix2) ...]
     Conso_total_periode = SQL_SELECT(QUERRY_getConsoTotalePeriode())[0][0]
     Conso_total_avant = SQL_SELECT(QUERRY_getConsoTotalePeriodeMoinsUn())[0][0]
     Produits_periode = SQL_SELECT(QUERRY_getIdPrixProduits())
