@@ -1,13 +1,4 @@
 
-__pycache__/WallofGraphes.cpython-38.pyc
-all_lccp.txt
-all_prix.txt
-all_lccp.txt
-all_prix.txt
-name_produit.txt
-all_prix.txt
-all_lccp.txt
-
 # ---------------------------------------------------
 # Pycharm
 .idea
@@ -165,5 +156,4 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
-# Cython debug symbols
-cython_debug/
+
