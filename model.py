@@ -9,14 +9,14 @@ def CalculPrix(produits_standard):   # Renvoie [(id1,prix1),(id2,prix2) ...]
     Produits_periode_futur = []
 
 
-    #Calul de A
-    Lcpp , Lcpa = [],[] #listes consos produits periode et periode avant
+    # Calul de A
+    Lcpp , Lcpa = [], []    # listes consos produits periode et periode avant
     CA_total_Kfet = 0
     for i in range(len(Produits_periode)):
         produit = Produits_periode[i]
         Conso_produit_periode = SQL_SELECT(QUERRY_getConsoPeriode(produit[0]))[0][0]
         Conso_produit_avant = SQL_SELECT(QUERRY_getConsoPeriodeMoinsUn(produit[0]))[0][0]
-        Lcpp.append(Conso_produit_periode) #permet de pas refaire sql
+        Lcpp.append(Conso_produit_periode)  # permet de pas refaire sql
         Lcpa.append(Conso_produit_avant)
         CA_total_Kfet += Lcpp[i]*produits_standard[i][1]
 

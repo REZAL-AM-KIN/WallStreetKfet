@@ -2,8 +2,8 @@
 
 
 #mins. ATTENTION <=30 et >=1 sinon programme marche pas !! Correspond à l'interval d'actualisation des prix.
-time_period = 2
-time_period_second = time_period * 60
+# time_period = 2
+# time_period_second = time_period * 60
 
 
 

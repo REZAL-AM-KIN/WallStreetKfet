@@ -21,7 +21,7 @@ while True:
 
     print(datetime.now().strftime("%H:%M:%S"))
 
-    if isRunning != previous_state: # permet de constater que le jeu démarre ou s'arrête
+    if isRunning != previous_state:     # permet de constater que le jeu démarre ou s'arrête
 
         if isRunning:   # si c'est un démarrage, on stocke les bons prix
             produits_standard = SQL_SELECT(QUERRY_getIdPrixProduits())
