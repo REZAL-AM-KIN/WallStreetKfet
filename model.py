@@ -31,21 +31,37 @@ def CalculPrix(produits_standard, A):   # Renvoie [(id1,prix1),(id2,prix2) ...]
     for i in range(len(Produits_periode)):
         CA_total_P3 += Lcpp[i] * Produits_periode[i][1]
 
-    A = CA_total_Kfet - CA_total_P3
+    A += CA_total_Kfet - CA_total_P3
     with open('logA-CA_kfet-CA_P3.txt', "a") as log:
-        log.write(str(CA_total_Kfet) + " - " + str(CA_total_P3)+ "\n")
+        log.write(str(CA_total_Kfet) + " - " + str(CA_total_P3) + "\n")
 
+    # terme correctif fixe
+    X_fixe = COEF_PHIKS * A / Conso_total_periode
     for i in range(len(Produits_periode)):
 
-        # si la conso est plus grande que la conso période d'avant, on augmente le prix
-       if Lcpp[i] >= Lcpa[i]:
-           beta = Lcpp[i] / Conso_total_periode
-           Produits_periode_futur.append((produits_standard[i][0], Produits_periode[i][1] * (1 + COEF_PHIKS * beta)))
+        # calcul de gamma : coeficient de correcteur variable
+        if Lcpp[i] < Lcpa[i]:
+            gamma = 0
+        else:
+            cvcp = 0 # somme des conso_verifiant_condition_phi'ks (Lcpp > Lcpa)
+            for i_conso in range(len(Produits_periode)):
+                if Lcpp[i_conso] > Lcpa[i_conso]:
+                    cvcp += Lcpp[i_conso]
+            gamma = Lcpp[i] / cvcp
 
-       # sinon, on diminue le prix
-       else:
-           beta = (Conso_total_periode - Lcpp[i]) / Conso_total_periode
-           Produits_periode_futur.append((produits_standard[i][0], Produits_periode[i][1] * (1 - COEF_PHIKS * beta)))
+        # terme correctif variable spécifique au produit i
+        X_var_produit = (1 - COEF_PHIKS) * A * gamma
+
+
+        # si la conso est plus grande que la conso période d'avant, on augmente le prix
+        if Lcpp[i] >= Lcpa[i]:
+            beta = Lcpp[i] / Conso_total_periode
+            Produits_periode_futur.append((produits_standard[i][0], Produits_periode[i][1] * (1 + coef_lingus * beta) + X_fixe + X_var_produit))
+
+        # sinon, on diminue le prix
+        else:
+            beta = (Conso_total_periode - Lcpp[i]) / Conso_total_periode
+            Produits_periode_futur.append((produits_standard[i][0], Produits_periode[i][1] * (1 - coef_lingus * beta) + X_fixe))
 
 
     print('consos anciens : ', Lcpa)
