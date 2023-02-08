@@ -12,8 +12,8 @@ def QUERRY_getIdPrixProduits():
             "WHERE id IN {0} ;".format(SQLid_produit_jeu))
 
 def QUERRY_getConsoPeriode(IDproduit): # renvoie le nb vendu sur la periode pour UN PRODUIT
-    minutes = '{:>2}'.format(PERIOD_SIZE // 60)
-    sec = '{:>2}'.format(PERIOD_SIZE % 60)
+    minutes = '{:0>2}'.format(PERIOD_SIZE // 60)
+    sec = '{:0>2}'.format(PERIOD_SIZE % 60)
     return ("SELECT count(*) "
             "FROM consos "
             "WHERE produits_id = {0} "
@@ -22,8 +22,8 @@ def QUERRY_getConsoPeriode(IDproduit): # renvoie le nb vendu sur la periode pour
                     '00:'+minutes+':'+sec))
 
 def QUERRY_getConsoTotalePeriode(): # renvoie le nb vendu sur la periode pour TOUS LES PRODUITS en jeu
-    minutes = '{:>2}'.format(PERIOD_SIZE // 60)
-    sec = '{:>2}'.format(PERIOD_SIZE % 60)
+    minutes = '{:0>2}'.format(PERIOD_SIZE // 60)
+    sec = '{:0>2}'.format(PERIOD_SIZE % 60)
     return ("SELECT count(*) "
             "FROM consos "
             "WHERE produits_id IN {0} "
@@ -33,10 +33,10 @@ def QUERRY_getConsoTotalePeriode(): # renvoie le nb vendu sur la periode pour TO
 
 def QUERRY_getConsoPeriodeMoinsUn(IDproduit):   # renvoie le nb vendu sur la periode pour UN PRODUIT
     # cast all string length to 2 using format
-    minutes = '{:>2}'.format(PERIOD_SIZE // 60)
-    sec = '{:>2}'.format(PERIOD_SIZE % 60)
-    minutesx2 = '{:>2}'.format(PERIOD_SIZE*2 // 60)
-    secx2 = '{:>2}'.format(PERIOD_SIZE*2 % 60)
+    minutes = '{:0>2}'.format(PERIOD_SIZE // 60)
+    sec = '{:0>2}'.format(PERIOD_SIZE % 60)
+    minutesx2 = '{:0>2}'.format(PERIOD_SIZE*2 // 60)
+    secx2 = '{:0>2}'.format(PERIOD_SIZE*2 % 60)
     return ("SELECT count(*) "
             "FROM consos "
             "WHERE produits_id = {0} "
@@ -48,10 +48,10 @@ def QUERRY_getConsoPeriodeMoinsUn(IDproduit):   # renvoie le nb vendu sur la per
 
 def QUERRY_getConsoTotalePeriodeMoinsUn():  # renvoie le nb vendu sur la periode pour TOUS LES PRODUITS en jeu
     # cast all string length to 2 using format
-    minutes = '{:>2}'.format(PERIOD_SIZE // 60)
-    sec = '{:>2}'.format(PERIOD_SIZE % 60)
-    minutesx2 = '{:>2}'.format(PERIOD_SIZE*2 // 60)
-    secx2 = '{:>2}'.format(PERIOD_SIZE*2 % 60)
+    minutes = '{:0>2}'.format(PERIOD_SIZE // 60)
+    sec = '{:0>2}'.format(PERIOD_SIZE % 60)
+    minutesx2 = '{:0>2}'.format(PERIOD_SIZE*2 // 60)
+    secx2 = '{:0>2}'.format(PERIOD_SIZE*2 % 60)
 
     return ("SELECT count(*) "
             "FROM consos "
