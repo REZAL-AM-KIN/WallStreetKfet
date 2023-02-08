@@ -7,9 +7,10 @@
 
 
 
-REFRESH_INTERVAL = 30   # [s]; fréquence à laquelle les prix sont recalculés
+REFRESH_INTERVAL = 1 * 60   # [s]; fréquence à laquelle les prix sont recalculés
 
-PERIOD_SIZE = 15 * 60    # [s]; fenêtre de temps sur laquelle les consommations sont comptées
+# égale pour le modèle 220
+PERIOD_SIZE = REFRESH_INTERVAL    # [s]; fenêtre de temps sur laquelle les consommations sont comptées
 
 # Nb_de_Periodes = // à entrer par l'utilisateur
 
@@ -19,7 +20,15 @@ isRunning = False
 # Comparé à la variable "isRunning", permet de constater un changement d'état marche/arrêt du jeu.
 previous_state = False
 
+# negat's P3 autorisé
+NEGATS_P3 = 30
+
+# Coef de Phik's,
+# utile pour le modèle 220
+COEF_PHIKS = 0.3
+
 # Coeff de Lingus, scientifique connu du 21eme
+# utile seulement pour le modèle 218
 coef_lingus = 0.3
 
 # id et prix standards kfet

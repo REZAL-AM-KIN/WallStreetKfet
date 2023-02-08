@@ -13,6 +13,9 @@ from WallStreetConfig import *
 
 isRunning = True
 
+# on initialise le CA
+A = 0
+
 periodes_jouees = 0
 while True:
     if periodes_jouees >= GAME_DURATION_STEP:
@@ -32,13 +35,16 @@ while True:
             with open("name_produit.txt", 'wb') as fp:
                 pickle.dump(name_produit, fp)
 
+            with open('logA-CA_kfet-CA_P3.txt', "w") as log:
+                log.write("CA_total_Kfet - CA_total_P3\n")
+
             print("\nLes produits joués sont: ", name_produit, "\n")
         previous_state = isRunning
 
     if isRunning:   # On a deja demarré et on est en jeu
         # -------------------
         # 1ème étape: Calcul des nouveaux prix à partir des formules de Lingus.
-        prix_p3_futur, Lcpp_temp = CalculPrix(produits_standard)
+        prix_p3_futur, Lcpp_temp, A = CalculPrix(produits_standard, A)
         all_Lccp.append(Lcpp_temp)
         all_prix.append([item[1] for item in prix_p3_futur])
         with open("all_lccp.txt", 'wb') as fp:
@@ -65,6 +71,16 @@ while True:
         print("\nremise à zero prix")
         previous_state = isRunning
         break
+
+    if A < -NEGATS_P3:  # Le negat's est trop important. Le jeu est stoppé et tout est remis en place, on quitte
+        querrys = ""
+        for produit in produits_standard:
+            querrys += QUERRY_setMontant(produit[0], produit[1])
+        SQL_UPDATE(querrys)
+        print("\nremise à zero prix")
+        previous_state = isRunning
+        break
+
 
     print("\nIl reste {0} manches de {1} secondes.\n".format(1+GAME_DURATION_STEP - periodes_jouees, REFRESH_INTERVAL))
     time.sleep(REFRESH_INTERVAL)    # on attends le step suivant
