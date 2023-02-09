@@ -7,7 +7,7 @@
 
 
 
-REFRESH_INTERVAL = 1 * 60   # [s]; fréquence à laquelle les prix sont recalculés
+REFRESH_INTERVAL = 30   # [s]; fréquence à laquelle les prix sont recalculés
 
 # égale pour le modèle 220
 PERIOD_SIZE = REFRESH_INTERVAL    # [s]; fenêtre de temps sur laquelle les consommations sont comptées
@@ -21,11 +21,15 @@ isRunning = False
 previous_state = False
 
 # negat's P3 autorisé
-NEGATS_P3 = 30
+NEGATS_P3 = 4
 
 # Coef de Phik's,
 # utile pour le modèle 220
-COEF_PHIKS = 0.3
+COEF_PHIKS = 0.5
+COEF_LINGUS_CROISSANT = 0.3
+COEF_LINGUS_DECROISSANT = 0.2
+COEF_DIMINUTION_CONSO_NULLE = 0.1
+NEGATS_PAR_PAS = 1
 
 # Coeff de Lingus, scientifique connu du 21eme
 # utile seulement pour le modèle 218

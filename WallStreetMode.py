@@ -43,8 +43,8 @@ while True:
 
     if isRunning:   # On a deja demarré et on est en jeu
         # -------------------
-        # 1ème étape: Calcul des nouveaux prix à partir des formules de Lingus.
-        prix_p3_futur, Lcpp_temp, A = CalculPrix(produits_standard, A)
+        # 1ème étape: Calcul des nouveaux prix à partir des formules de scientifiques notables du 21e.
+        prix_p3_futur, Lcpp_temp, A = CalculPrix(produits_standard, A - NEGATS_PAR_PAS)
         all_Lccp.append(Lcpp_temp)
         all_prix.append([item[1] for item in prix_p3_futur])
         with open("all_lccp.txt", 'wb') as fp:
@@ -68,11 +68,14 @@ while True:
         for produit in produits_standard:
             querrys += QUERRY_setMontant(produit[0], produit[1])
         SQL_UPDATE(querrys)
+        with open('logA-CA_kfet-CA_P3.txt', "a") as log:
+            log.write("A: " + str(A) + "\n")
         print("\nremise à zero prix")
         previous_state = isRunning
         break
 
-    if A < -NEGATS_P3:  # Le negat's est trop important. Le jeu est stoppé et tout est remis en place, on quitte
+    # Le negat's est trop important. Le jeu est stoppé et tout est remis en place, on quitte
+    if A + periodes_jouees * NEGATS_PAR_PAS > NEGATS_P3:
         querrys = ""
         for produit in produits_standard:
             querrys += QUERRY_setMontant(produit[0], produit[1])
